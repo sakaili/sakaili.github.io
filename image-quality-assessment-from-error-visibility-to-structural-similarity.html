@@ -1,0 +1,179 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!--
+Design by Free CSS Templates
+http://www.freecsstemplates.org
+Released for free under a Creative Commons Attribution 2.5 License
+
+Name       : Brown Stone  
+Description: A two-column, fixed-width design with dark color scheme.
+Version    : 1.0
+Released   : 20100928
+
+-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>Image Quality Assessment: From Error Visibility to Structural Similarity</title>
+<link href="/theme/css/style.css" rel="stylesheet" type="text/css" media="screen" />
+<link href="/" type="application/atom+xml" rel="alternate" title="sakaili ATOM Feed" />
+</head>
+<body>
+<div id="wrapper">
+	<div id="page">
+		<div id="page-bgtop">
+			<div id="page-bgbtm">
+    
+                        	<div id="content">
+					<div class="post">
+						<h2 class="title"><a href="image-quality-assessment-from-error-visibility-to-structural-similarity.html">Image Quality Assessment: From Error Visibility to Structural Similarity</a></h2>
+						<p class="meta"><span class="date">Le 周一 17 四月 2023 </span><span class="posted">Par <a href="#">sakaili</a></span><span>&nbsp; | Catégorie : <a href="/category/review.html">Review</a></span></p>
+					<p class="meta">Tags : </p>	
+						<div style="clear: both;">&nbsp;</div>
+						<div class="entry">
+						 <h1>图像质量评估：从错误可见性到结构相似性</h1>
+<h2>摘要</h2>
+<p>传统上，用于评估感知图像质量的客观方法试图使用人类视觉系统的各种已知属性来量化失真图像和参考图像之间的错误（差异）的可见性。在人类视觉感知高度适应从场景中提取结构信息的假设下，我们引入了一种基于结构信息退化的质量评估替代补充框架。作为这个概念的一个具体例子，我们开发了一个结构相似性指数，并通过一组直观的例子展示了它的前景，以及在一个压缩图像数据库上与主观评分和最先进的客观方法进行比较JPEG 和 JPEG2000。</p>
+<h2>简介</h2>
+<p>数字图像在获取、处理、压缩、存储、传输和复制过程中会发生各种各样的失真，其中任何一个都可能导致视觉质量下降。对于图像最终要被人类观看的应用，量化视觉图像质量的唯一“正确”方法是通过主观评价。然而，在实践中，主观评价通常太不方便、耗时且昂贵。客观图像质量评估研究的目标是开发能够自动预测感知图像质量的定量措施。</p>
+<p>客观的图像质量度量可以在图像处理应用程序中发挥多种作用。首先，它可用于动态监控和调整图像质量。例如，网络数字视频服务器可以检查正在传输的视频质量，以便控制和分配流媒体资源。其次，它可用于优化图像处理系统的算法和参数设置。例如，在视觉通信系统中，质量度量可以帮助编码器处的预过滤和比特分配算法的优化设计以及解码器处的优化重建、错误隐藏和后置过滤算法。第三，它可用于对图像处理系统和算法进行基准测试。客观图像质量指标可以根据原始（无失真）图像的可用性进行分类，失真图像将与原始图像进行比较。大多数现有方法都被称为全参考，这意味着完整的参考图像被假定为已知。然而，在许多实际应用中，参考图像不可用，因此需要一种无参考或“盲”质量评估方法。在第三种方法中，参考图像仅部分可用，以一组提取的特征的形式作为辅助信息提供，以帮助评估失真图像的质量。这被称为减少参考质量评估。本文侧重于全参考图像质量评估。</p>
+<p>最简单和最广泛使用的全参考质量指标是均方误差 (MSE)，通过平均失真和参考图像像素的平方强度差以及峰值信噪比 (PSNR) 的相关量来计算.这些之所以吸引人，是因为它们计算简单，具有明确的物理意义，并且在优化的背景下在数学上很方便。但它们与感知的视觉质量不太匹配（例如，[1]-[9]）。在过去的三十年里，人们在开发利用人类视觉系统 (HVS) 已知特征的质量评估方法方面付出了大量努力。大多数提出的感知质量评估模型都遵循修改 MSE 度量的策略，以便根据其可见性对错误进行惩罚。第二部分总结了这种错误敏感性方法并讨论了它的困难和局限性。在第 III 节中，我们描述了一种新的质量评估范例，该范例基于 HVS 高度适用于提取结构信息的假设。作为一个具体示例，我们开发了一种结构相似性度量 (SSIM)，用于比较已针对亮度和对比度进行归一化的像素强度的局部模式。在第 IV 节中，我们将不同质量评估模型的测试结果与为使用 JPEG 和 JPEG2000 压缩的 344 张图像的数据库收集的大量主观评分进行比较。</p>
+<h2>基于误差敏感度的图像质量评估</h2>
+<p>其质量被评估的图像信号可以被认为是未失真的参考信号和误差信号的总和。一个广泛采用的假设是感知质量的损失与错误信号的可见性直接相关。这个概念最简单的实现是 MSE，它客观地量化了误差信号的强度。但是具有相同 MSE 的两个失真图像可能具有非常不同类型的错误，其中一些错误比其他错误更明显。文献中提出的大多数感知图像质量评估方法都试图根据误差信号的可见性对误差信号的不同方面进行加权，如人类的心理物理测量或动物的生理测量所确定的那样。这种方法由 Mannos 和 Sakrison [10] 率先提出，多年来已被许多其他研究人员扩展。关于图像和视频质量评估算法的评论可以在 [4] 和 [11]-[13] 中找到。</p>
+<p>A. 框架 图 1 说明了一个基于误差敏感性的通用图像质量评估框架。大多数感知质量评估模型都可以用类似的图表来描述，尽管它们在细节上有所不同。该图的阶段如下所示。 
+-  预处理：这个阶段通常执行各种基本操作，以消除被比较图像的已知失真。首先，失真和参考信号被适当地缩放和对齐。其次，信号可能会转换为更适合 HVS 的颜色空间（例如 [14]）。第三，质量评估指标可能需要将存储在计算机内存中的数字像素值通过逐点非线性变换转换为显示设备上像素的亮度值。第四，可以应用模拟眼睛光学器件的点扩散函数的低通滤波器。最后，可以使用非线性点操作来模拟光适应来修改参考图像和失真图像。 
+- CSF 过滤：对比敏感度函数(CSF) 描述了HVS 对视觉刺激中存在的不同空间和时间频率的敏感度。一些图像质量指标包括一个根据此函数对信号进行加权的阶段（通常使用近似 CSF 频率响应的线性滤波器来实现）。然而，许多最近的指标选择将 CSF 作为通道分解后的基础灵敏度归一化因子。 
+- 通道分解：图像通常被分成子带（在心理物理学文献中通常称为“通道”），这些子带对空间和时间频率以及方向具有选择性。虽然一些质量评估方法实施了复杂的通道分解，这些通道分解被认为与初级视觉皮层中的神经反应密切相关 [2]、[15]–[19]，但许多指标使用更简单的变换，例如离散余弦变换 (DCT)  [20], [21] 或可分离小波变换 [22]–[24]。还报道了调谐到各种时间频率的信道分解用于视频质量评估 [5]、[25]。 
+- 误差归一化：每个通道中分解后的参考信号和失真信号之间的误差（差异）根据一定的掩蔽模型计算和归一化，考虑到一个图像分量的存在会降低另一个图像的可见性在空间或时间位置、空间频率或方向上最接近的组件。归一化机制通过空间变化的可见性阈值 [26] 对通道中的误差信号进行加权。每个点的可见性阈值是根据参考能量和/或邻域中的失真系数（可能包括来自同一通道和其他通道的空间邻域内的系数）和该通道的基本灵敏度计算的渠道。规范化过程旨在将误差转换为可察觉差异 (JND) 单位。一些方法还考虑了对比度响应饱和度的影响（例如，[2]）。
+- 误差池：所有质量指标的最后阶段必须将图像空间范围内和不同通道上的归一化误差信号组合成一个值。对于大多数质量评估方法，合并采用 Minkowski 范数的形式，如下所示：\
+</p>
+<div class="math">$$E({c_l, k}) = (\sum_l\sum_k|c_l, k|^\beta)^{\frac{1}{\beta}}$$</div>
+<p>
+TEST1234567890112123</p>
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/latest.js?config=TeX-AMS-MML_HTMLorMML';
+
+    var configscript = document.createElement('script');
+    configscript.type = 'text/x-mathjax-config';
+    configscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'none' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        availableFonts: ['STIX', 'TeX']," +
+        "        preferredFont: 'STIX'," +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(configscript);
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>	
+						</div>
+					</div>
+			      
+					<div style="clear: both;">&nbsp;</div>
+				</div>
+				<!-- end #content -->
+				<div id="sidebar">
+					<div id="logo">
+						<h1><a href="">sakaili</a></h1>
+					</div>
+					<div id="menu">
+						<ul>
+							<li ><a href="">Home</a></li>
+							<li ><a href="/archives.html">Archives</a></li>
+						</ul>
+					</div>
+					<ul>
+						<li>
+							<h2>Catégories</h2>
+							<ul>
+								 <li class="active"><a href="/category/review.html">Review</a></li>
+							</ul>
+						</li>
+						<li>
+							<h2>Blogroll</h2>
+							<ul>
+                                                            <li><a href="https://getpelican.com/">Pelican</a></li>
+                                                            <li><a href="https://www.python.org/">Python.org</a></li>
+                                                            <li><a href="https://palletsprojects.com/p/jinja/">Jinja2</a></li>
+                                                            <li><a href="#">You can modify those links in your config file</a></li>
+							</ul>
+						</li>
+                                                <li>
+                                                        <h2>Social</h2>
+                                                        <ul>
+                                                            <li><a href="/" rel="alternate">Flux Atom</a></li>
+                                                            <li><a href="#">You can add links in your config file</a></li>
+                                                            <li><a href="#">Another social link</a></li>
+                                                        </ul>
+                                                </li><!-- /.social -->
+						<li>
+						        <h2>Tags</h2>
+						        <ul>
+						        </ul>
+						</li>
+						
+						
+					</ul>
+				</div>
+				<!-- end #sidebar -->
+				<div style="clear: both;">&nbsp;</div>
+			</div>
+		</div>
+	</div>
+	<!-- end #page -->
+
+<div id="footer">
+	<p>Copyright (c) 2008 Sitename.com. All rights reserved. Design by <a href="http://www.freecsstemplates.org/">CSS Templates</a>.</p>
+	<p>Proudly powered by <a href="http://alexis.notmyidea.org/pelican/">pelican</a>, which takes great advantages of <a href="http://python.org">python</a>.
+</p>
+</div>
+<!-- end #footer -->
+</body>
+</html>

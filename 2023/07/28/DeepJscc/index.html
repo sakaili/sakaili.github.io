@@ -471,8 +471,25 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="Deep-Joint-Source-Channel-Coding（DeepJSCC）深度联合源通道编码"><a href="#Deep-Joint-Source-Channel-Coding（DeepJSCC）深度联合源通道编码" class="headerlink" title="Deep Joint Source-Channel Coding（DeepJSCC）深度联合源通道编码"></a>Deep Joint Source-Channel Coding（DeepJSCC）深度联合源通道编码</h1><h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>JSCC技术不依赖显示代码进行压缩或纠错，而是直接将图像像素值映射到复值通道输入符号。通过联合训练的卷积神经网络，对编码器和解码器功能进行参数化，将其视为具有代表噪声通信通道的不可训练层的自动编码器。</p>
-<p>DeepJSCC不会收到悬崖效应的影响</p>
+                <h1 id="Deep-Joint-Source-Channel-Coding（DeepJSCC）深度联合源通道编码"><a href="#Deep-Joint-Source-Channel-Coding（DeepJSCC）深度联合源通道编码" class="headerlink" title="Deep Joint Source-Channel Coding（DeepJSCC）深度联合源通道编码"></a>Deep Joint Source-Channel Coding（DeepJSCC）深度联合源通道编码</h1><h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>JSCC技术不依赖显示代码（直接用深度学习从数据集种学习统计特征）进行压缩或纠错，而是直接将图像像素值映射到复值通道输入（具体是指在通信过程中，将图像像素值映射到复数值的信道输入）。通过联合训练的卷积神经网络，对编码器和解码器功能进行参数化，将其视为具有代表噪声通信通道的不可训练层的自动编码器。</p>
+<p>DeepJSCC不会收到悬崖效应的影响，悬崖效应（Cliff Effect）是指在某个系统或过程中，当参数或条件略有改变时，性能或结果会出现急剧的、不连续的变化。这种效应通常与系统的稳定性、鲁棒性或优化过程相关。</p>
+<p> JSCC 方案优于数字传输级联 JPEG 或 JPEG2000 压缩，并且在存在加性高斯白噪声 (AWGN) 的情况下，能够以低信噪比 (SNR) 和信道带宽值实现信道编码。在慢瑞利衰落信道的情况下，深度 JSCC 学习噪声弹性编码表示，并且在所有 SNR 和信道带宽值上都显着优于基于分离的数字通信。</p>
+<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>现代通信系统大都采用两步编码过程来传输图像\视频数据：</p>
+<ul>
+<li>首先采用源编码算法对输入x进行压缩，以消除固有的冗余性，减少传输的信息量。</li>
+<li>压缩比特流首先使用纠错码进行编码，从而实现针对错误的弹性传输，然后进行调制。</li>
+</ul>
+<p>本文架构：在第二节中，介绍系统模型，提供传统无线图像传输系统及其局限性的一些背景。第三节介绍所提出的深层 JSCC 架构。第四节评估Deeo JSCC 的性能，并将其与静态和衰落 AWGN 信道上的传统单独 JSCC 方案进行比较。第五节，总结。</p>
+<h2 id="系统模型及背景"><a href="#系统模型及背景" class="headerlink" title="系统模型及背景"></a>系统模型及背景</h2><p><img src="/2023/07/28/DeepJscc/MyPersonalBlog/source/_posts/DeepJscc/image-20230729111110493.png" alt="image-20230729111110493"></p>
+<p>传统的图像传输系统通常执行三个连续的独立步骤，以便生成通过信道传输的信号z。</p>
+<ul>
+<li>使用源编码器$f_s$消除源冗余，这通常是常用的压缩方法之一（例如 JPEG&#x2F;JPEG2000、WebP）。</li>
+<li>将信道码$f_c$(例如 LDPC、Turbo 码)应用于压缩比特流，以保护其免受通信信道引入的损害。</li>
+<li>使用调制方案 $g_m$(例如 BPSK、16-QAM)对编码比特流进行调制，将比特映射到复值样本。</li>
+</ul>
+<p>解码器以相反的顺序进行解码，即解调、通道解码、解压缩。</p>
+<h2 id="基于深度学习的联合源通道编码"><a href="#基于深度学习的联合源通道编码" class="headerlink" title="基于深度学习的联合源通道编码"></a>基于深度学习的联合源通道编码</h2><p>所提出的方案如图所示：</p>
+<p><img src="/2023/07/28/DeepJscc/MyPersonalBlog/source/_posts/DeepJscc/image-20230729111119774.png" alt="image-20230729111119774"></p>
 
                 
             </div>

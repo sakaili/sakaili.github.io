@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="PyTorch-Cifar-10数据集处理相关, SAKAILI">
+    <meta name="keywords" content="PyTorch-DeepLearning(1), SAKAILI">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>PyTorch-Cifar-10数据集处理相关 | SAKAILI</title>
+    <title>PyTorch-DeepLearning(1) | SAKAILI</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -310,12 +310,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/20.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">PyTorch-Cifar-10数据集处理相关</h1>
+                    <h1 class="description center-align post-title">PyTorch-DeepLearning(1)</h1>
                 </div>
             </div>
         </div>
@@ -471,43 +471,7 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>在使用CIFAR-10数据集时，通常需要对图像进行预处理，例如归一化、随机水平翻转、随机裁剪等。</p>
-<h2 id="数据集下载以及归一化"><a href="#数据集下载以及归一化" class="headerlink" title="数据集下载以及归一化"></a>数据集下载以及归一化</h2><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> torchvision <span class="token keyword">import</span> transforms
-<span class="token keyword">from</span> torch<span class="token punctuation">.</span>utils<span class="token punctuation">.</span>data <span class="token keyword">import</span> DataLoader
-<span class="token comment"># 获取数据集并归一化</span>
-transform <span class="token operator">=</span> transforms<span class="token punctuation">.</span>Compose<span class="token punctuation">(</span><span class="token punctuation">[</span>transforms<span class="token punctuation">.</span>ToTensor<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-                                transforms<span class="token punctuation">.</span>Normalize<span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token number">0.5</span><span class="token punctuation">,</span> <span class="token number">0.5</span><span class="token punctuation">,</span> <span class="token number">0.5</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">0.5</span><span class="token punctuation">,</span> <span class="token number">0.5</span><span class="token punctuation">,</span> <span class="token number">0.5</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-                                <span class="token punctuation">]</span><span class="token punctuation">)</span>
-
-<span class="token comment"># 获取CIFAR-10数据集和测试集</span>
-train_dataset <span class="token operator">=</span> torchvision<span class="token punctuation">.</span>datasets<span class="token punctuation">.</span>CIFAR10<span class="token punctuation">(</span>
-    root<span class="token operator">=</span><span class="token string">'./data'</span><span class="token punctuation">,</span>
-    train<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span>
-    download<span class="token operator">=</span><span class="token boolean">False</span><span class="token punctuation">,</span>
-    transform<span class="token operator">=</span>transform
-<span class="token punctuation">)</span>
-test_dataset <span class="token operator">=</span> torchvision<span class="token punctuation">.</span>datasets<span class="token punctuation">.</span>CIFAR10<span class="token punctuation">(</span>
-    root<span class="token operator">=</span><span class="token string">'./data'</span><span class="token punctuation">,</span>
-    train<span class="token operator">=</span><span class="token boolean">False</span><span class="token punctuation">,</span>
-    download<span class="token operator">=</span><span class="token boolean">False</span><span class="token punctuation">,</span>
-    transform<span class="token operator">=</span>transform
-<span class="token punctuation">)</span>
-<span class="token comment"># 装载数据</span>
-train_loader <span class="token operator">=</span> DataLoader<span class="token punctuation">(</span>
-    dataset<span class="token operator">=</span>train_dataset<span class="token punctuation">,</span>
-    batch_size<span class="token operator">=</span>batch_size<span class="token punctuation">,</span>
-    shuffle<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span>
-    num_workers<span class="token operator">=</span><span class="token number">2</span>
-<span class="token punctuation">)</span>
-
-test_loader <span class="token operator">=</span> DataLoader<span class="token punctuation">(</span>
-    dataset<span class="token operator">=</span>test_dataset<span class="token punctuation">,</span>
-    batch_size<span class="token operator">=</span>batch_size<span class="token punctuation">,</span>
-    shuffle<span class="token operator">=</span><span class="token boolean">False</span><span class="token punctuation">,</span>
-    num_workers<span class="token operator">=</span><span class="token number">2</span>
-<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-
+                
                 
             </div>
             <hr/>
@@ -625,9 +589,9 @@ test_loader <span class="token operator">=</span> DataLoader<span class="token p
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="PyTorch-Cifar-10数据集处理相关">
+                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="PyTorch-DeepLearning(1)">
                         
-                        <span class="card-title">PyTorch-Cifar-10数据集处理相关</span>
+                        <span class="card-title">PyTorch-DeepLearning(1)</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
